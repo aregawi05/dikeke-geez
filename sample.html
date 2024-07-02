@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title style="background-color: #456; color: red;" >DEKIKE GEEZ House Assocation</title>
+   
+    <a href="hom70.html">HOME</a>
+<a href="70 con.html">Contact</a> <br>
+<img style="width: 450px; height: 100; padding: 10px; " src="image\2.jfif" alt="2">
+<img style="width: 800px; height: 100; "src="image\3.jfif" alt="">
+<head>
+    <style> 
+    .bacground image {
+        background-image: url("../image\11.jfif");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        font-family: Arial, sans-serif;
+        color: #333;
+        height: 100vh;
+    }
+</style>
+</head>
+    <style>
+        {
+      margin: 0;
+      padding: 0;
+      background-image:url('E:\desctop\file\html\css\image\4.jfif');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      height: 100vh; }
+      /* Set the height to full viewport height */
+    
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        {
+            text-align: center;
+            color: red;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+        .form-group input, .form-group textarea {
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .form-group button {
+            display: block;
+            width: 40%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        a{
+        background-color:#456;color: white;
+        text-align: center;
+        padding: 12px; 25px
+        display: inline;
+        text-decoration: none;
+    }
+    a:hover {
+        background-color: red;
+        #active {
+          background-color: aqua;
+    </style>
+</head>
+<body>
+    <h1 style="background-color: #456; font-size: xx-large; text-align: center; color: white;">DEKIKE GEEZ HOUSE ASSOCATION</h1>
+    <hr>
+
+    <h2>Membership Form</h2>
+    <form id="memberForm">
+        <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+            <label for="amountBirr">Amount in Birr</label>
+            <input type="number" id="amountBirr" placeholder="Enter the amount in Birr">
+        </div>
+        <div class="form-group">
+            <label for="dateIssued">Date of Issue</label>
+            <input type="date" id="dateIssued">
+        </div>
+        <div class="form-group">
+            <label for="receiptAttachment">Attach Receipt</label>
+            <input type="file" id="receiptAttachment">
+        </div>
+        <div class="form-group">
+            <button type="button" onclick="submitForm()">Submit</button>
+        </div>
+    </form>
+
+    <script>
+        function submitForm() {
+            // Get form values
+            var fullName = document.getElementById("fullName").value.trim();
+            var amountBirr = document.getElementById("amountBirr").value.trim();
+            var dateIssued = document.getElementById("dateIssued").value.trim();
+            var receiptAttachment = document.getElementById("receiptAttachment").value.trim();
+
+            // Perform form validation
+            if (fullName === "") {
+                alert("Please enter your full name.");
+                return;
+            }
+
+            if (amountBirr === "") {
+                alert("Please enter the amount in birr.");
+                return;
+            }
+
+            if (dateIssued === "") {
+                alert("Please enter the date of issue.");
+                return;
+            }
+
+            if (receiptAttachment === "") {
+                alert("Please attach a receipt.");
+                return;
+            }
+
+            // Submit the form
+            alert("Form submitted successfully!");
+            document.getElementById("memberForm").reset();
+        }
+        const express = require('express');
+const mysql = require('mysql');
+
+const app = express();
+const port = 3000;
+
+// MySQL connection configuration
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'your_username',
+    password: 'your_password',
+    database: 'your_database'
+});
+
+// Connect to MySQL
+connection.connect((err) => {
+    if (err) throw err;
+    console.log('Connected to MySQL!');
+});
+
+// Middleware to parse JSON data
+app.use(express.json());
+
+// Handle form submission
+app.post('/submit-form', (req, res) => {
+    const { fullName, amountBirr, dateIssued, receiptAttachment } = req.body;
+
+    // Insert data into the MySQL database
+    const query = 'INSERT INTO membership_form (full_name, amount_birr, date_issued, receipt_attachment) VALUES (?, ?, ?, ?)';
+    connection.query(query, [fullName, amountBirr, dateIssued, receiptAttachment], (err, result) => {
+        if (err) {
+            console.error('Error inserting data:', err);
+            return res.status(500).json({ error: 'An error occurred while submitting the form.' });
+        }
+        res.status(200).json({ message: 'Form submitted successfully!' });
+    });
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
+    </script>
+</body>
+</html>
